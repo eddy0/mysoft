@@ -4,6 +4,6 @@ if __name__ == '__main__':
     a = configured_app()
     a.run(
         debug=True,
-        host='localhost',
-        port=3000,
+        host='0.0.0.0',
+        port=5000,
     )

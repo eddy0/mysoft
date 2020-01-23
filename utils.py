@@ -1,12 +1,12 @@
 import pymysql
 import time
-from pwd import sql as sql_pwd
-from pwd import db as sql_db
+# from pwd import sql as sql_pwd
+# from pwd import db as sql_db
 
 
 def log(*args, **kwargs):
     time_format = '%Y%m%d %H:%M:%S'
-    value = time.localtime(int(time.time))
+    value = time.localtime(int(time.time()))
     formatted = time.strftime(time_format, value)
     print(formatted, *args, **kwargs)
 
