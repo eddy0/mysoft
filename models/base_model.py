@@ -1,7 +1,10 @@
+import json
 import time
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
+
+from utils import log
 
 db = SQLAlchemy()
 
@@ -33,6 +36,7 @@ class SQLMixin(object):
     @classmethod
     def all(cls, **kwargs):
         ms = cls.query.filter_by(**kwargs).all()
+        ms = [m.to_json() for m in ms]
         return ms
 
     @classmethod
@@ -43,6 +47,14 @@ class SQLMixin(object):
     @classmethod
     def columns(cls):
         return cls.__mapper__.c.items()
+
+    def to_json(self):
+        d = {}
+        for attr, column in self.columns():
+            if hasattr(self, attr):
+                v = getattr(self, attr)
+                d[attr] = v
+        return d
 
     def __repr__(self):
         """

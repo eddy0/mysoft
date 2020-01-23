@@ -8,6 +8,8 @@ from route.route_basic import error
 from route.route_index import bp as route_index
 from route.route_todo_api import main as route_todo_api
 
+from flask_cors import CORS
+
 
 def register_blueprint(app):
     app.register_blueprint(route_index)
@@ -16,6 +18,8 @@ def register_blueprint(app):
 
 def configured_app():
     app = f.Flask(__name__)
+    CORS(app)
+
     app.secret_key = 'asdfaax'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:{}@localhost/web19?charset=utf8mb4'.format(
         secret.database_password
