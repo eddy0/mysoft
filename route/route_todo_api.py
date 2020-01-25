@@ -15,8 +15,8 @@ main = Blueprint('route_todo_api', __name__)
 @main.route('/add', methods=['POST'])
 def add_todo():
     form = request.form
-    ts = Todo.add(form)
-    return
+    t = Todo.add(form)
+    return jsonify(t)
 
 
 @main.route('/')

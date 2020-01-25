@@ -20,7 +20,7 @@ class SQLMixin(object):
         for name, value in form.items():
             setattr(m, name, value)
             m.save()
-            return m
+            return m.to_json()
 
     def save(self):
         db.session.add(self)
