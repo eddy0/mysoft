@@ -2,7 +2,7 @@ import json
 import time
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, TIMESTAMP
 
 from utils import log
 
@@ -11,16 +11,17 @@ db = SQLAlchemy()
 
 class SQLMixin(object):
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
-    created_time = Column(Integer, default=lambda: int(time.time()))
-    updated_time = Column(Integer, default=lambda: int(time.time()))
+    # time 的时间戳是秒位单位， 其他的是毫秒为单位
+    created_time = Column(Integer, default=lambda: int(round(time.time())))
+    updated_time = Column(Integer, default=lambda: int(round(time.time())))
 
     @classmethod
     def new(cls, form):
         m = cls()
         for name, value in form.items():
             setattr(m, name, value)
-            m.save()
-            return m.to_json()
+        m.save()
+        return m.to_json()
 
     def save(self):
         db.session.add(self)
@@ -31,7 +32,9 @@ class SQLMixin(object):
         m = cls.query.filter_by(id=id).first()
         for name, value in kwargs.items():
             setattr(m, name, value)
+        setattr(m, 'updated_time', int(round(time.time())))
         m.save()
+        return m.to_json()
 
     @classmethod
     def all(cls, **kwargs):

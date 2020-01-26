@@ -5,15 +5,18 @@ from flask_admin.contrib.sqla import ModelView
 import secret
 from models.base_model import db
 from route.route_basic import error
-from route.route_index import bp as route_index
-from route.route_todo_api import main as route_todo_api
 
 from flask_cors import CORS
 
 
 def register_blueprint(app):
+    from route.route_index import bp as route_index
+    from route.route_todo_api import main as route_todo_api
+    from route.route_comment_api import main as route_comment_api
+
     app.register_blueprint(route_index)
     app.register_blueprint(route_todo_api, url_prefix='/todo')
+    app.register_blueprint(route_comment_api, url_prefix='/comment')
 
 
 def configured_app():
