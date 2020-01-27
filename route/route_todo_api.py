@@ -31,6 +31,11 @@ def update_todo(id):
     t = Todo.update(id, **form)
     return jsonify(t)
 
+@main.route('/<id>', methods=['DELETE'])
+def delete_todo(id):
+    t = Todo.delete(id)
+    return jsonify(t)
+
 
 @main.route('/')
 def todo_index():

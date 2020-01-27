@@ -16,7 +16,5 @@ class Comment(SQLMixin, db.Model):
         for f in form:
             if f in freeze:
                 d[f] = form[f]
-        log('d', d)
         m = super().new(d)
-        log(m)
         return m

@@ -20,7 +20,6 @@ class Todo(SQLMixin, db.Model):
             d['comments'] = comments
         return data
 
-
     @classmethod
     def add(cls, form):
         d = {}

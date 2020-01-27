@@ -28,6 +28,12 @@ class SQLMixin(object):
         db.session.commit()
 
     @classmethod
+    def delete(cls, id):
+        m = cls.one(id=id)
+        db.session.delete(m)
+        db.session.commit()
+
+    @classmethod
     def update(cls, id, **kwargs):
         m = cls.query.filter_by(id=id).first()
         for name, value in kwargs.items():
