@@ -4,6 +4,7 @@ from flask_admin.contrib.sqla import ModelView
 
 import secret
 from models.base_model import db
+from models.todo import Todo
 from route.route_basic import error
 
 from flask_cors import CORS
@@ -35,6 +36,6 @@ def configured_app():
     app.errorhandler(404)(error)
 
     admin = Admin(app, name='web19', template_mode='bootstrap3')
-    # admin.add_view(ModelView())
+    admin.add_view(ModelView(Todo, db.session))
 
     return app

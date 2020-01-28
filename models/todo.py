@@ -1,6 +1,6 @@
 import json
 
-from sqlalchemy import Column, UnicodeText, Integer, Boolean
+from sqlalchemy import Column, UnicodeText, Boolean
 
 from models.base_model import SQLMixin, db
 from models.comment import Comment
