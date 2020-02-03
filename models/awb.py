@@ -1,36 +1,20 @@
-import json
-
 from sqlalchemy import Column, UnicodeText, Boolean, Integer
-
 from models.base_model import SQLMixin, db
-from models.comment import Comment
-from route.helper import current_user
-from utils import log
 
 
-class Todo(SQLMixin, db.Model):
-    todo = Column(UnicodeText, nullable=False)
+class AWB(SQLMixin, db.Model):
+    awb = Column(UnicodeText, nullable=False)
     user_id = Column(Integer, nullable=False)
     note = Column(UnicodeText, nullable=False, default='N/A')
     complete = Column(Boolean, nullable=False, default=False)
 
     @classmethod
-    def all(cls, **kwargs):
-        data = super().all(**kwargs)
-        for d in data:
-            comments = Comment.all(todo_id=d['id'])
-            d['comments'] = comments
-        return data
-
-    @classmethod
     def add(cls, form):
         d = {}
-        freeze = ['note', 'todo']
+        freeze = ['note', 'awb']
         for f in form:
             if f in freeze:
                 d[f] = form[f]
-        u = current_user()
-        d['user_id'] = u.id
         m = super().new(d)
         return m
 

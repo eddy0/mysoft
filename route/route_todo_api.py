@@ -7,12 +7,14 @@ from flask import (
     jsonify)
 
 from models.todo import Todo
+from route.helper import login_required
 from utils import log
 
 main = Blueprint('route_todo_api', __name__)
 
 
 @main.route('/add', methods=['POST'])
+@login_required
 def add_todo():
     data = request.get_json()
     t = Todo.add(data)

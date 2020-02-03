@@ -4,6 +4,7 @@ import secret
 from app import configured_app
 from models.base_model import db
 from models.todo import Todo
+from models.user import User
 from utils import log
 
 
@@ -22,6 +23,7 @@ def reset_database():
 
 
 def generate_fake_date():
+    u = User.one(id=1)
     form = dict(
         todo='gua',
         note='123'
@@ -34,4 +36,4 @@ if __name__ == '__main__':
     app = configured_app()
     with app.app_context():
         reset_database()
-        generate_fake_date()
+        # generate_fake_date()
