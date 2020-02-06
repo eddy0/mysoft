@@ -18,6 +18,7 @@ main = Blueprint('route_todo_api', __name__)
 def add_todo():
     data = request.get_json()
     t = Todo.add(data)
+    log('data', t)
     return jsonify(t)
 
 
@@ -33,6 +34,7 @@ def update_todo(id):
     t = Todo.update(id, **form)
     return jsonify(t)
 
+
 @main.route('/<id>', methods=['DELETE'])
 def delete_todo(id):
     t = Todo.delete(id)
@@ -40,7 +42,9 @@ def delete_todo(id):
 
 
 @main.route('/')
+@login_required
 def todo_index():
+    log('all')
     todos = Todo.all()
     return jsonify(todos)
 
@@ -60,4 +64,3 @@ def todo_complete():
 def todo_uncomplete():
     todos = Todo.all(complete=False)
     return jsonify(todos)
-

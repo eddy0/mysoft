@@ -10,8 +10,8 @@ from utils import log
 
 main = Blueprint('route_awb_api', __name__)
 
-@login_required
 @main.route('/add', methods=['POST'])
+@login_required
 def add_awb():
     data = request.get_json()
     t = AWB.add(data)

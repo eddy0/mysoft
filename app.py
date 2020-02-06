@@ -24,7 +24,7 @@ def register_blueprint(app):
 
 def configured_app():
     app = f.Flask(__name__)
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     app.secret_key = 'asdfaax'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:{}@localhost/web19?charset=utf8mb4'.format(

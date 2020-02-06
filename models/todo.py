@@ -16,7 +16,8 @@ class Todo(SQLMixin, db.Model):
 
     @classmethod
     def all(cls, **kwargs):
-        data = super().all(**kwargs)
+        u = current_user()
+        data = super().all(user_id=u.id, **kwargs)
         for d in data:
             comments = Comment.all(todo_id=d['id'])
             d['comments'] = comments
@@ -32,6 +33,7 @@ class Todo(SQLMixin, db.Model):
         u = current_user()
         d['user_id'] = u.id
         m = super().new(d)
+        log('m', m)
         return m
 
     @classmethod

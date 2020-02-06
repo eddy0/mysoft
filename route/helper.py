@@ -13,9 +13,10 @@ def login_required(route_function):
     def f():
         log('login_required', session)
         u = current_user()
+        log('u', u)
         if u is None:
             log('游客用户')
-            return jsonify({'url': '/login'})
+            return jsonify(user=None, direct_url='/login')
         else:
             log('登录用户', route_function)
             return route_function()
@@ -32,6 +33,7 @@ def current_user():
     log('current user')
     try:
         token = request.headers["z-token"]
+        log('token', token)
     except Exception:
         return None
     u = User.verify_auth_token(token)
