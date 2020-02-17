@@ -1,6 +1,7 @@
 from sqlalchemy import Column, UnicodeText, Boolean, Integer
 from models.base_model import SQLMixin, db
 from route.helper import current_user
+from utils import log
 
 
 class AWB(SQLMixin, db.Model):

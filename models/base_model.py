@@ -2,7 +2,7 @@ import json
 import time
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, TIMESTAMP
+from sqlalchemy import Column, Integer, String, TIMESTAMP, desc
 
 from utils import log
 
@@ -44,7 +44,7 @@ class SQLMixin(object):
 
     @classmethod
     def all(cls, **kwargs):
-        ms = cls.query.filter_by(**kwargs).all()
+        ms = cls.query.filter_by(**kwargs).order_by(desc('updated_time')).all()
         ms = [m.to_json() for m in ms]
         return ms
 

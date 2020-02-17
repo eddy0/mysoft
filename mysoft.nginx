@@ -6,6 +6,6 @@ server {
     }
 
     location / {
-        proxy_pass http://localhost:5000/todo;
+        proxy_pass http://localhost:5000/;
     }
 }

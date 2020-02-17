@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import flask as f
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
+# from flask_admin import Admin
+# from flask_admin.contrib.sqla import ModelView
 
 import secret
 from models.base_model import db
@@ -37,7 +39,7 @@ def configured_app():
 
     app.errorhandler(404)(error)
 
-    admin = Admin(app, name='web19', template_mode='bootstrap3')
-    admin.add_view(ModelView(Todo, db.session))
+    # admin = Admin(app, name='web19', template_mode='bootstrap3')
+    # admin.add_view(ModelView(Todo, db.session))
 
     return app

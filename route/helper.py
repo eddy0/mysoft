@@ -10,16 +10,16 @@ from utils import log
 
 def login_required(route_function):
     @functools.wraps(route_function)
-    def f():
+    def f(*args, **kwargs):
         log('login_required', session)
         u = current_user()
         log('u', u)
         if u is None:
-            log('游客用户')
-            return jsonify(user=None, direct_url='/login')
+            log('guest login')
+            return jsonify(user=None, redirect_url='/login', errcode=2000)
         else:
-            log('登录用户', route_function)
-            return route_function()
+            log('user login', route_function)
+            return route_function(*args, **kwargs)
     return f
 
 
@@ -30,13 +30,14 @@ def login_required(route_function):
 
 
 def current_user():
-    log('current user')
+    log('current user function')
     try:
         token = request.headers["z-token"]
         log('token', token)
     except Exception:
         return None
     u = User.verify_auth_token(token)
+    log('current user,', u)
     return u
 
 
