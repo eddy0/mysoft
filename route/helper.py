@@ -8,6 +8,10 @@ from models.user import User
 from utils import log
 
 
+def render_json(data, **kwargs):
+    return jsonify(data=data, errcode=0, **kwargs)
+
+
 def login_required(route_function):
     @functools.wraps(route_function)
     def f(*args, **kwargs):

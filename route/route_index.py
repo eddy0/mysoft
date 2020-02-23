@@ -39,7 +39,7 @@ def route_auth():
         # 设置 cookie 有效期为 永久
         session.permanent = True
         token = u.create_token()
-        r = jsonify(user=u.to_json(), token=token)
+        r = jsonify(user=u.to_json(), token=token, errcode=0)
         return r
 
 

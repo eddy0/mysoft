@@ -4,6 +4,13 @@ import time
 # from pwd import db as sql_db
 
 
+def format():
+    time_format = '%Y-%m-%d %H:%M:%S'
+    value = time.localtime(int(time.time()))
+    formatted = time.strftime(time_format, value)
+    return formatted
+
+
 def log(*args, **kwargs):
     time_format = '%Y%m%d %H:%M:%S'
     value = time.localtime(int(time.time()))
